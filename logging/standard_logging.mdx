@@ -1,0 +1,40 @@
+---
+title : Standard structures
+icon : table-tree
+---
+<Note>
+    Refer Appendix for the service specific log structures examples/structures created for API, backend etc..
+</Note>
+The following logger structure serves as a foundational template that can be utilized across all products. This structure can be standardized to maintain consistency and modified as needed to accommodate specific requirements or additional needs of individual products.
+
+<b>Common logger</b> fits for all services:
+
+```
+log_entry = {
+    "timestamp": timestamp,
+    "level": level.upper(),
+    "environment": self.environment,
+    "application": self.app_name,
+    "service": self.service,
+    "product_name": self.product_name,
+    "tenant_id": tenant_id or self.default_tenant_id,
+    "user_id": user_id,
+    "trace_id": trace_id,
+    "span_id": span_id,
+    "event": {
+        "name": event_name,
+        "duration_ms": duration_ms
+    },
+    "context": context or {},
+    "runtime": {
+        "function": func_name,
+        "module": module_name,
+        "file": file_name,
+        "line_number": line_number,
+        "memory_usage_mb": process.memory_info().rss / 1024 / 1024,
+        "cpu_usage_percent": process.cpu_percent()
+    },
+    "message": message,
+    "extra": extra or {}
+}
+```

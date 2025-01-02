@@ -1,0 +1,53 @@
+---
+tile : Log and File Naming Standards
+icon : file-signature
+---
+
+<b>Base Directory Structure:</b> /var/log/[product_name]/
+<Info>
+    <b>Example : </b> /var/log/platform/
+</Info>
+
+<b>Log File Naming Convention : </b>  [application_name]-[component]-[environment]-[YYYY-MM-DD].log
+<Info>
+    <b>Example : </b>
+    <ul>
+        <li>platform-iam-prod-2024-11-07.log</li>
+        <li>platform-billing-prod-2024-11-07.log</li>
+    </ul>
+</Info>
+
+<b>Directory Hierarchy</b>
+<Accordion title="/var/log/[product_name]/">
+    <Accordion title="production">
+        <Accordion title="backend">
+            <ul>
+                <li>myapp-backend-prod-2024-11-07.log</li>
+                <li>archive/</li>
+            </ul>
+        </Accordion>
+        <Accordion title="frontend">
+            <ul>
+                <li>myapp-frontend-prod-2024-11-07.log</li>
+                <li>archive/</li>
+            </ul>
+        </Accordion>
+    </Accordion>
+    <Accordion title='staging' />
+    <Accordion title='development' />
+</Accordion>
+
+## Standards Guidelines
+Key considerations:
+
+<li>Use lowercase letters for consistency</li>
+<li>Include date in the filename for easy rotation</li>
+<li>Separate environments (prod/stage/dev)</li>
+<li>Create separate directories for different components</li>
+<li>Include an archive directory for rotated logs</li>
+
+## Log retention guidelines
+<li>Retention: As per project team.</li>
+<li>Compression: is recommended for archiving files</li>
+<li>Include timestamps in rotated files.</li>
+

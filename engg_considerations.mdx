@@ -1,0 +1,52 @@
+---
+title: 'Key Engineering Considerations'
+icon : keyboard-left
+---
+Below are the key engineering considerations that led us evaluating best fit and moving towards to a self-hosted ELK stack.
+
+<CardGroup cols={2}>
+    <Card
+        title='Enhanced Governance and Compliance'
+        icon='users-between-lines'
+    >
+        Gaining greater control over data security, privacy, and regulatory compliance.
+        <li>Meeting regulatory requirements (e.g., local UAE regulatory compliance) is primary may demand that data is stored within specific geographical locations or infrastructure under your control.</li>
+    </Card>
+    <Card
+        title='Data Ownership and Control'
+        icon='database'
+    >
+        Maintaining complete ownership of all observability data.
+        <li>Should gives us ability to manage data, retention policies, and access and privacy. And implementation of end to end data life cycle.</li>
+    </Card>
+    <Card
+        title='Meeting Customer Expectations'
+        icon='user'
+    >
+        Addressing customer concerns regarding data privacy and security.
+
+        <li>Should be able to achieve/address customer expectations and their concerns in keeping their data secure and maintaining data privacy.</li>
+    </Card>
+    <Card
+        title='Cost Optimization'
+        icon='money-bill-wave'
+    >
+        Addressing customer concerns regarding data privacy and security.
+        <li>Should be able to achieve/address customer expectations and their concerns in keeping their data secure and maintaining data privacy.</li>
+    </Card>
+    <Card
+        title='Cost Optimization'
+        icon='money-bill-wave'
+    >
+        Shifting from an OPEX to a CAPEX model for observability infrastructure as the subscription based models costs high due to high with volume of logs,application data streams.
+        <li> Unlike the subscription based models like datadog, A self-hosted ELK stack shifts the cost model from OPEX to CAPEX (capital expenditure) for infrastructure, offering potential long-term cost savings, especially with substantial data volumes. This decision implies an investment in internal expertise for managing the ELK stack.</li>
+    </Card>
+    <Card
+        title='Avoiding Vendor/data Lock-in'
+        icon='lock'
+    >
+        Gaining flexibility in choosing observability tools and technologies.
+        <br/>
+        <li>It allows us with the freedom to own and manage out own data life cycle, customize the stack, integrate with other open-source tools, and switch vendors if needed.</li>
+    </Card>
+</CardGroup>
