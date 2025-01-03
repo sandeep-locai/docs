@@ -15,12 +15,23 @@
       "to": "#07C983"
     }
   },
+
   "theme": "prism",
   "anchors": [
     {
       "name": "Community",
       "icon": "slack",
       "url": "https://locai-workspace.slack.com/archives/C07MX00L8EN"
+    }
+  ],
+  "tabs": [
+    {
+      "name": "Technical Design",
+      "url": "/"
+    },
+    {
+      "name": "Integration",
+      "url": "integration"
     }
   ],
   "navigation": [
@@ -43,20 +54,32 @@
     {
       "group": "Logging",
       "pages": [
-        "logging/standard_logging"
+        "logging/standard_logging",
+        "logging/naming_standard"
       ]
     },
     {
       "group": "Visualization",
       "pages": [
-        "visualization/dashboard_visualization",
-        "logging/naming_standard"
+        "visualization/dashboard_visualization"
+
       ]
     },
     {
       "group": "Extension & Tech Stack",
       "pages": [
         "techstack/introduction"
+      ]
+    },
+    {
+      "group": "",
+      "pages": [
+        "integration/apm-integration",
+        "integration/products-integrated",
+        "integration/log_ingegration",
+        "integration/alerts_notification",
+        "integration/implementation_plan"
+
       ]
     }
   ]

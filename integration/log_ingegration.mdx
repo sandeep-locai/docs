@@ -1,0 +1,139 @@
+---
+title : Log integration
+icon : files
+---
+
+## Log Data Integration with ELK
+
+Below is the technical implementation of Logs.
+
+<Steps>
+    <Step title="Add “Logger Util” created to your project and import into your program.">
+        #### Python
+        <code>from logger import api_logger</code>
+        #### Java
+        <code>import com.iqraa.logging.LoggerSDK;</code>
+    </Step>
+    <Step title="Initialize the 'logger_sdk' with service and environment details">
+        <Note>
+            Follow lower case for Environment, servicename, Service Name: &lbrace;productname&rcub;&ndash;&lbrace;be/ai/fe&rcub;&ndash;&lbrace;environment&rcub;.
+        </Note>
+        #### Python
+       ```python
+        from logger import api_logger
+
+        logger_sdk = LoggerSDK(service_name="-{product-fe/be/..}-Environment -logs", # Required: Service identifier  ex: development-iqraa-fe
+            environment="development",                   # Required: Environment (dev/stage/prod)
+            product_name="your-product/project-name",    # Required: Project identifier
+            app_name="your-app-name",                    # Required: Name of your application ex: user-registration-api
+            log_dir="/path/to/logs",                     # Required: Directory for log files
+            tenant_id="tenant_id"                        # Required: Default tenant ID
+        )
+
+        ```
+        #### Java
+        ```java
+        LoggerSDK logger = new LoggerSDK( " Environment-{product-fe/be/..}-logs ",   // Required: Service name ex: development-iqraa-fe
+            "development",           // Required: Environment
+            "your-product-name",     // Required: Product name EX: iqraa
+            "your-app-name",          // Required: Application name
+            "/path/to/logs",         // Required: Log directory
+            "default-tenant"         // Optional: Default tenant ID
+        );
+        ```
+    </Step>
+    <Step title="Basic Logging">
+        <Note>
+            <li>Use "Context" for adding the details related to the function(like API, method, backend data),  and runtime details etc.</li>
+            <li>Extra entity to store supplementary or additional information specific to the event or operation being logged.like task completion, or process, user specific detalis etc..</li>
+        </Note>
+        #### Python
+        ```python
+        logger_sdk.log( level="INFO", // Required: Log level (INFO/ERROR/WARN)
+        event_name="user_action",              //  Required: Event identifier
+        message="User performed action",   //  Required: Log message
+        user_id="user123",      //  Required: User identifier
+        tenant_id="tenant456",    // Required: Tenant identifier
+        extra={            //  Optional: Additional data
+            "action_type": "login",
+            "ip_address": "192.168.1.1"
+         }
+        )
+        ```
+        #### Java
+        ```java
+        logger.log( "info",  // level Required: Log level (info/error/debug/warn)
+            "user_action",                   // eventName Required
+            "User performed action",         // message Required
+            null,// context (Map<String, Object>)
+            Map.of("action_type", "login"), // extra data Optional
+            null,         // durationMs Optional
+            "user123",  // userId  Required
+            "tenant456"   // tenantId Required
+        );
+        ```
+    </Step>
+    <Step title="Decorator for logging function duration ">
+
+        #### Python
+        ```python
+        @logger_sdk.log_duration("create_user")     # Optional:
+        def create_user(user_data):
+        # Your function code here
+        Pass
+        ```
+        #### Java
+        ```java
+        String userId = "user123";
+        String tenantId = "tenant456";
+
+        UserResponse result = logger.logDuration(
+        "create_user",
+        userId,
+        tenantId,
+        () -> {
+        // Your operation here
+        return createUser(userData);
+    }
+        );
+
+        ```
+    </Step>
+    <Step title="Error Logging">
+        <Note>
+            Incase if the application deployed using kubernaties, and logs are logged into standard output so below steps and log directory paths may not necessary for now.  Also, you may need to enable configuration for to write logs to stdout/stderr.
+        </Note>
+        #### Python
+        ```python
+        try:
+        # Your code here
+        raise Exception("Something went wrong")
+        except Exception as e:
+        logger_sdk.log(
+        level="error",
+        event_name="error_event",
+        message=str(e),
+        extra={"traceback": traceback.format_exc()}
+        )
+
+        ```
+        #### Java
+        ```java
+        try {
+        // Your code here
+        throw new Exception("Something went wrong");
+    } catch (Exception e) {
+        logger.log(
+            "error", "error_event", e.getMessage(),
+            null, Map.of("stackTrace", e.getStackTrace()),
+            null, userId, tenantId);
+    }
+        ```
+        <Note>
+            Reference Notes:
+            <li>Added the log structure which can be used common for API/Backend/database by passing relavent details like for context, extra sub-entities.</li>
+            <li>Added log structures specific for API/Backend/database.</li>
+        </Note>
+    </Step>
+
+</Steps>

@@ -1,0 +1,266 @@
+---
+title : Elastic APM Integration Guide
+icon : diagram-venn
+---
+
+This guide provides step-by-step instructions for configuring Elastic APM in Python, Java, and Node.js applications.
+
+## Installing APM Agents
+
+```
+### Python
+>> bash
+# For Flask applications
+pip install elastic-apm[flask]
+
+# For Django applications
+pip install elastic-apm[django]
+
+# For FastAPI applications
+pip install elastic-apm[starlette]
+```
+
+## Java
+
+Download the agent JAR from Maven Central. Do not add the agent as a dependency to your application.
+
+```
+>> bash
+# Download latest version from Maven Central
+wget https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/1.36.0/elastic-apm-agent-1.36.0.jar
+Note: try download from the Kibana > integrations > APM > Elastic APM in Fleet > java
+```
+
+## nodeJS
+
+```
+>> bash
+# Using npm
+npm install elastic-apm-node --save
+```
+
+## Configuring APM Agents
+
+### Python
+
+#### Flask Applications
+
+```
+>> python
+from flask import Flask
+from elasticapm.contrib.flask import ElasticAPM
+
+app = Flask(__name__)
+
+# Method 1: Direct configuration
+app.config['ELASTIC_APM'] = {
+   'SERVICE_NAME': 'my-service-name',
+   'SERVER_URL': 'http://localhost:8200',
+   'ENVIRONMENT': 'development',
+   'CAPTURE_BODY': 'all',
+   'TRANSACTION_SAMPLE_RATE': 1.0,
+   'COLLECT_LOCAL_VARIABLES': 'all'
+}
+apm = ElasticAPM(app)
+```
+
+#### Using environment variables
+
+```
+# Set environment variables:
+# ELASTIC_APM_SERVICE_NAME=my-service-name
+# ELASTIC_APM_SERVER_URL=http://localhost:8200
+# ELASTIC_APM_ENVIRONMENT=development
+apm = ElasticAPM(app)
+```
+
+### Django Applications
+
+```
+>> python
+# settings.py
+INSTALLED_APPS = [
+   'elasticapm.contrib.django',
+   # ... other apps
+]
+
+ELASTIC_APM = {
+   'SERVICE_NAME': 'my-service-name',
+   'SERVER_URL': 'http://localhost:8200',
+   'ENVIRONMENT': 'development',
+   'DJANGO_TRANSACTION_NAME_FROM_ROUTE': True,
+   'CAPTURE_BODY': 'all'
+}
+
+MIDDLEWARE = [
+   'elasticapm.contrib.django.middleware.TracingMiddleware',
+   # ... other middleware
+]
+```
+
+### Java
+#### Command Line Configuration
+```
+java -javaagent:/path/to/elastic-apm-agent-1.36.0.jar \
+-Delastic.apm.service_name=my-service-name \
+-Delastic.apm.server_urls=http://localhost:8200 \
+-Delastic.apm.environment=development \
+-Delastic.apm.application_packages=com.example \
+-Delastic.apm.transaction_sample_rate=1.0 \
+-jar my-application.jar
+```
+
+#### Spring Boot Configuration
+
+```
+// src/main/resources/elasticapm.properties
+elastic.apm.service_name=my-service-name
+elastic.apm.server_urls=http://localhost:8200
+elastic.apm.environment=development
+elastic.apm.application_packages=com.example
+elastic.apm.transaction_sample_rate=1.0
+```
+
+#### Programmatic Configuration
+
+```
+@Configuration
+public class ApmConfig {
+   @PostConstruct
+   public void init() {
+       Map<String, String> apmProps = new HashMap<>();
+       apmProps.put("service_name", "my-service-name");
+       apmProps.put("server_urls", "http://localhost:8200");
+       apmProps.put("environment", "development");
+       apmProps.put("application_packages", "com.example");
+       ElasticApmAttacher.attach(apmProps);
+   }
+}
+```
+
+### Node.js
+
+#### Add labels to transaction
+
+```
+const transaction = apm.startTransaction('operation-name');
+transaction.addLabels({
+   'user.id': userId,
+   'tenant.id': tenantId,
+   'operation.type': operationType,
+   'operation.status': status
+});
+```
+
+#### Add labels to span
+
+```
+const span = apm.startSpan('span-name');
+span.addLabels({
+   'user.id': userId,
+   'tenant.id': tenantId,
+   'custom.label': value
+});
+```
+
+#### Adding Transaction Spans
+
+##### Python
+
+```
+# Method 1: Using decorator
+from elasticapm import capture_span
+
+@capture_span()
+def my_function():
+   # your code here
+```
+
+#####  Using context manager
+
+```
+from elasticapm import capture_span
+
+with capture_span('operation_name', 'operation_type'):
+   # your code here
+```
+
+##### Manual span
+```
+import elasticapm
+span = elasticapm.capture_span('operation_name')
+try:
+   # your code here
+finally:
+   span.end()
+```
+
+#### Java
+
+##### Using annotation
+
+```
+import co.elastic.apm.api.CaptureSpan;
+
+@CaptureSpan
+public void myMethod() {
+   // your code here
+}
+```
+
+#####  Manual span
+
+```
+import co.elastic.apm.api.ElasticApm;
+
+Span span = ElasticApm.startSpan();
+try {
+   span.setName("operation-name")
+       .setType("operation-type");
+   // your code here
+} finally {
+   span.end();
+}
+```
+
+#### Node.js
+
+
+Simple span
+
+```
+const span = apm.startSpan('operation-name');
+try {
+   // your code here
+} finally {
+   span.end();
+}
+```
+Async span
+
+```
+async function operationWithSpan() {
+   const span = apm.startSpan('operation-name');
+   try {
+       await someAsyncOperation();
+   } finally {
+       span.end();
+   }
+}
+```
+Span with labels
+
+```
+const span = apm.startSpan('operation-name');
+span.addLabels({
+   'operation.type': 'database',
+   'operation.details': 'query-users'
+});
+try {
+   // your code here
+} finally {
+   span.end();
+}
+```
+
+
