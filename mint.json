@@ -40,7 +40,9 @@
       "pages": [
         "introduction",
         "stack_component",
-        "engg_considerations"
+        "engg_considerations",
+        "techstack",
+        "implementation_plan"
       ]
     },
     {
@@ -52,23 +54,11 @@
       ]
     },
     {
-      "group": "Logging",
+      "group": "Implementation Guidelines",
       "pages": [
         "logging/standard_logging",
-        "logging/naming_standard"
-      ]
-    },
-    {
-      "group": "Visualization",
-      "pages": [
+        "logging/naming_standard",
         "visualization/dashboard_visualization"
-
-      ]
-    },
-    {
-      "group": "Extension & Tech Stack",
-      "pages": [
-        "techstack/introduction"
       ]
     },
     {
@@ -77,8 +67,7 @@
         "integration/apm-integration",
         "integration/products-integrated",
         "integration/log_ingegration",
-        "integration/alerts_notification",
-        "integration/implementation_plan"
+        "integration/alerts_notification"
 
       ]
     }

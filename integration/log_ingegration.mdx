@@ -10,9 +10,15 @@ Below is the technical implementation of Logs.
 <Steps>
     <Step title="Add “Logger Util” created to your project and import into your program.">
         #### Python
-        <code>from logger import api_logger</code>
+        <code>from logger import api_logger</code> or <code>import logging</code>
         #### Java
-        <code>import com.iqraa.logging.LoggerSDK;</code>
+        ```
+            import com.locai.logger.config.LoggerConfig;
+            import com.locai.logger.config.LoggerFactory;
+            import com.locai.logger.model.LogEvent;
+       ```
+        or
+        <code>import org.slf4j.Logger; // for direct object usage</code>
     </Step>
     <Step title="Initialize the 'logger_sdk' with service and environment details">
         <Note>

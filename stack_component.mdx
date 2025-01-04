@@ -1,9 +1,9 @@
 ---
-title: 'Features & Stack Components'
+title: 'Features'
 icon : diamonds-4
 ---
 
-## Key pillers/ Features of observability
+## Current Features
 <ul>
     <li><b>Logs:</b> Time-stamped records of discrete events. Logs provide detailed context and are essential for  debugging and troubleshooting. Examples include application logs, system logs, and audit logs.</li>
     <li><b>Metrics:</b> Numerical measurements of system behavior over time. Metrics provide aggregated data and are useful for identifying trends and anomalies. Examples include CPU usage, memory consumption, request latency, and error rates.</li>
@@ -12,3 +12,61 @@ icon : diamonds-4
 <Frame>
     <img src="/images/stack_components.png" width="400" height="400" />
 </Frame>
+
+## Roadmap
+This section provides a detailed, quarter-wise breakdown of our plans for the upcoming year. It highlights key initiatives,
+feature releases, and platform improvements we aim to deliver in 2025.
+<Note>
+    The Roadmap will be constantly reviewed to ensure delivery inline with product development roadmaps.
+</Note>
+<Tabs>
+    <Tab title='Quarter 1'>
+        <CardGroup cols={1}>
+            <Card title='Alerting Enhancements' icon='bell'>
+                Set up dynamic alert thresholds based on predictive patterns rather than static values.
+            </Card>
+            <Card title='Role-Based Access Control (RBAC)' icon='ruler-combined'>
+                Configure granular access controls for different teams using Kibana Spaces.
+            </Card>
+            <Card title='CI/CD Pipeline Integration' icon='timeline'>
+                Embed ELK monitoring into the CI/CD pipeline for real-time build and deployment tracking.
+            </Card>
+        </CardGroup>
+    </Tab>
+    <Tab title='Quarter 2'>
+        <CardGroup cols={1}>
+            <Card title='Trace and Metrics Correlation' icon='train-track'>
+                Integrate traces, logs, and metrics to provide a holistic view of system performance and troubleshooting.
+            </Card>
+            <Card title='User Session Correlation' icon='users'>
+                Analyze user session details alongside RUM data for deeper insights.
+            </Card>
+            <Card title='Log Sanitization' icon='hand-holding-droplet'>
+                Automatically sanitize logs to remove sensitive or unnecessary information before indexing.
+            </Card>
+        </CardGroup>
+    </Tab>
+    <Tab title='Quarter 3'>
+        <CardGroup cols={1}>
+            <Card title='Synthetic Monitoring' icon='watchman-monitoring'>
+                Integrate traces, logs, and metrics to provide a holistic view of system performance and troubleshooting.
+            </Card>
+            <Card title='Predictive Analytics' icon='chart-mixed'>
+                Implement predictive insights for system capacity planning and performance trends.
+            </Card>
+            <Card title='Root Cause Analysis' icon='route'>
+                Leverage AI models to identify the root causes of incidents and suggest potential resolutions.
+            </Card>
+        </CardGroup>
+    </Tab>
+    <Tab title='Quarter 4'>
+        <CardGroup cols={1}>
+            <Card title='Self-Healing Mechanisms' icon='heat'>
+                Automate remediation processes for recurring issues detected by ELK.
+            </Card>
+            <Card title='Anomaly Detection' icon='user-secret'>
+                Use ML-based models to automatically detect anomalies in logs and metrics.
+            </Card>
+        </CardGroup>
+    </Tab>
+</Tabs>
