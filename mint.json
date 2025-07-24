@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "EKL Observability",
   "logo": {
-    "dark": "/logo/locai-light-logo.svg",
-    "light": "/logo/locai-logo.svg"
+    "dark": "/logo/AI71-Primary-White.png",
+    "light": "/logo/AI71-Primary-Black.png"
   },
   "favicon": "/favicon.png",
   "colors": {
